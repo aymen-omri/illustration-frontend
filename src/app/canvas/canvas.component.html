@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body top">
+      <strong *ngIf="!illus">Add illustration</strong>
+      <strong *ngIf="illus">{{ illus.name }}</strong>
+      <strong> <a class="card-link" style="cursor: pointer;" routerLink="/illus/list">Back to list</a>
+      </strong>
+      <button mat-raised-button style="background-color: gold;"  (click)="saveIllus()" *ngIf="!illus &&!showSpinner">
+        <mat-icon>add</mat-icon> Add
+      </button>
+      <button mat-raised-button style="background-color: gold;"  *ngIf="illus" (click)="addTranslation()">
+        <mat-icon>add</mat-icon> Add translation
+      </button>
+      <mat-spinner style="width: 50px;" *ngIf="showSpinner"></mat-spinner>
+    </div>
+  </div>
+  <div class="alert alert-danger mt-3" *ngIf="errMessage">{{ errMessage }}</div>
+  <div class="card mt-3">
+    <div class="card-header">
+      <strong>Basic data</strong>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="myForm">
+        <div class="row">
+          <div class="col-lg">
+            <mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Name</mat-label>
+              <input matInput type="text" formControlName="name" required>
+              <mat-error *ngIf="myForm.get('name')!.hasError('required')">name is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg">
+            <mat-form-field class="example-full-width">
+              <mat-label>Category</mat-label>
+              <mat-select formControlName="category" [disabled]="illus">
+                <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="myForm.get('category')!.hasError('required')">Category is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg">
+            <mat-form-field class="example-full-width">
+              <mat-label>Language</mat-label>
+              <mat-select formControlName="language">
+                <mat-option *ngFor="let lang of languages" [value]="lang">{{ lang }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="myForm.get('language')!.hasError('required')">Language is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-form-field class="example-full-width">
+          <mat-label>This is a...</mat-label>
+          <textarea matInput placeholder="Ex. It makes me feel..." formControlName="description" rows="3"></textarea>
+          <mat-error
+            *ngIf="myForm.get('description')!.hasError('minlength')||myForm.get('description')!.hasError('maxlength')">
+            Min length: 130 characters Max Length: 1000 characters</mat-error>
+        </mat-form-field>
+      </form>
+
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">
+      <strong>Create Image</strong>
+    </div>
+    <div class="card-body">
+      <div class="actions">
+        <button type="button" mat-stroked-button (click)="fileInput.click()" *ngIf="!illus">
+          <mat-icon>upload</mat-icon>
+          Upload Image
+        </button>
+        <input #fileInput type="file" class="form-control" style="display: none" (change)="handleImageUpload($event)" />
+        <button (click)="addTextZone()" mat-stroked-button color="warn">
+          <mat-icon>add</mat-icon>
+          Add Text Zone
+        </button>
+        <button (click)="deleteSelectedObject()" mat-stroked-button color="accent">
+          <mat-icon>delete</mat-icon>
+          Delete object
+        </button>
+        <button (click)="downloadCanvas()" mat-stroked-button color="primary">
+          <mat-icon>download</mat-icon>
+          Download
+        </button>
+        <button mat-stroked-button (click)="startDrawing()">
+          <mat-icon>edit</mat-icon>
+          Draw a Line
+        </button>
+        <button mat-stroked-button (click)="finishEditing()">
+          Finish
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-lg">
+          <canvas #canvas></canvas>
+        </div>
+        <div class="col-lg">
+          <div class="card">
+            <div class="card-header">
+              <strong>Result</strong>
+            </div>
+            <div class="card-body" *ngIf="finishedFileUrl">
+              <img [src]="finishedFileUrl" width="100%" height="330" alt="result">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

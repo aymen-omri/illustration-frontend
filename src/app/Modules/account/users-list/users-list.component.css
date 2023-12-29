@@ -1,0 +1,19 @@
+.hide {
+  display: none;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 17px auto;
+}
+
+.container {
+  height: 100vh;
+}

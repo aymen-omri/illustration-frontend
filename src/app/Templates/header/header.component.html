@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <span routerLink="/illus/list" style="cursor: pointer;">
+    <mat-icon>book</mat-icon>
+    Illustration
+  </span>
+  <span class="example-spacer"></span>
+  <button mat-button routerLink="illus/list" style="margin-right: 7px;">Illustrations list</button>
+  <button mat-raised-button style="background-color: gold;" routerLink="/auth/login" *ngIf="!isLoggedIn">
+    <mat-icon>login</mat-icon> Login
+  </button>
+
+  <!--Menu-->
+  <div class="dropdown" *ngIf="isLoggedIn">
+    <!-- Image Button -->
+    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      <img 
+      src="https://as1.ftcdn.net/v2/jpg/04/43/94/64/1000_F_443946416_l2xXrFoIuUkItmyscOK5MNh6h0Vai3Ua.jpg"
+        alt="Admin" class="rounded-circle" style="width: 40px; height: 40px;">
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" style="cursor: pointer;" routerLink="/account/profile">
+        <span>Profile</span>
+      </a>
+      <a class="dropdown-item" style="cursor: pointer;" routerLink="/account/users-list" *ngIf="role == 'ROLE_ADMIN'">
+        <span>Users list</span>
+      </a>
+      <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">
+        <span>Logout</span>
+      </a>
+    </div>
+  </div>
+
+</mat-toolbar>

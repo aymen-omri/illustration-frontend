@@ -1,0 +1,66 @@
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>
+          <mat-icon>book</mat-icon>
+          Illustrations list
+        </strong>
+      </mat-panel-title>
+      <mat-panel-description>
+        Search
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="filters">
+      <button mat-icon-button (click)="clearFilter()">
+        <mat-icon>update</mat-icon>
+      </button>
+      <mat-form-field class="example-full-width">
+        <mat-label>Category</mat-label>
+        <mat-select (selectionChange)="filterIllus()" [formControl]="category">
+          <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Language</mat-label>
+        <mat-select (selectionChange)="filterIllus()" [formControl]="language">
+          <mat-option *ngFor="let lang of languages" [value]="lang">{{ lang }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" [formControl]="name" (keyup)="filterIllus()">
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="container">
+  <div class="center">
+    <div class="card" *ngFor="let illus of filter">
+      <div class="image">
+        <img [src]="illus.illustrationUrl" alt="illustration" width="100%" height="150">
+      </div>
+      <div class="content">
+        <a href="#">
+          <span class="title">
+            {{ illus.category }}: {{ illus.name }}
+          </span>
+        </a>
+
+        <p class="desc">
+          <strong>{{ illus.description | text }}</strong>
+        </p>
+
+        <a class="action find" [routerLink]="['/illus/details' , illus.id_illus]">
+          Find out more
+          <span aria-hidden="true">
+            →
+          </span>
+        </a>
+        <a class="action delete" (click)="deleteIllus(illus.id_illus)" *ngIf="role=='ROLE_ADMIN'">
+          Delete
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

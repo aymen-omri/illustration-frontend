@@ -1,0 +1,28 @@
+.screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+form {
+  max-width: 300px;
+}
+
+.header-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gold a{
+  color: gold;
+}
+
+
+
+mat-form-field {
+  width: 100%;
+}

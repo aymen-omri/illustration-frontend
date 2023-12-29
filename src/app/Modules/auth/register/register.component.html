@@ -1,0 +1,36 @@
+<div class="screen">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="mat-elevation-z6">
+    <mat-card class="example-card">
+      <mat-card-header class="header-center">
+        <mat-card-title>Register</mat-card-title>
+        <mat-card-subtitle>
+          <p>You have an account? <a class="card-link" style="cursor: pointer;color:gold" routerLink="/auth/login">Click here!</a></p>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="alert alert-danger" *ngIf="errMessage">{{ errMessage }}</div>
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username" required>
+          <mat-error *ngIf="myForm.get('username')!.hasError('required')">username is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-error *ngIf="myForm.get('email')!.hasError('required')">Email is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required>
+          <mat-error *ngIf="myForm.get('password')!.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
+        <button mat-raised-button style="background-color: gold;" type="submit">Register</button>
+
+      </mat-card-content>
+
+    </mat-card>
+
+  </form>
+</div>

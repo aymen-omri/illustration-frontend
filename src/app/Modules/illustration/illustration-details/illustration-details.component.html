@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+  integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-5">
+      <div class="project-info-box mt-0">
+        <h5>Description</h5>
+        <p class="mb-0">{{ illus?.description }}</p>
+      </div><!-- / project-info-box -->
+
+      <div class="project-info-box">
+        <p><b>Owner:</b> {{ illus?.user?.username }}</p>
+        <p><b>Date:</b> {{ illus?.date? illus.date : "-" }}</p>
+        <p><b>Category:</b> {{ category }}</p>
+        <p><b>Language:</b> {{ illus?.language }}</p>
+      </div><!-- / project-info-box -->
+
+      <div class="project-info-box mt-0 mb-0" *ngIf="isLoggedIn">
+        <button mat-stroked-button color="warn" [routerLink]="['/canvas' , illus?.id_illus]">
+          <mat-icon>add</mat-icon>Add translation
+        </button>
+        <div style="color: grey;" class="mt-3" *ngIf="illus?.addedIlustrtions.length == 0">No translation available
+        </div>
+        <mat-form-field class="example-full-width" *ngIf="illus?.addedIlustrtions.length >0" class="mt-3">
+          <mat-label>Select language</mat-label>
+          <mat-select (selectionChange)="switchLanguage($event)">
+            <mat-option value="">_Default_</mat-option>
+            <mat-option *ngFor="let illus of illus?.addedIlustrtions" [value]="illus.id_added">{{ illus.language }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div><!-- / project-info-box -->
+      <div class="project-info-box mt-0 mb-0" *ngIf="!isLoggedIn">
+        <mat-form-field class="example-full-width" *ngIf="illus?.addedIlustrtions.length >0" class="mt-3">
+          <mat-label>Select language</mat-label>
+          <mat-select (selectionChange)="switchLanguage($event)">
+            <mat-option value="">_Default_</mat-option>
+            <mat-option *ngFor="let illus of illus?.addedIlustrtions" [value]="illus.id_added">{{ illus.language }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field><br>
+        <strong>
+          <a class="card-link" style="cursor: pointer;" routerLink="/auth/login">
+            <mat-icon>login</mat-icon>Login to add translations
+          </a>
+        </strong>
+      </div>
+    </div><!-- / column -->
+
+    <div class="col-md-7">
+      <img [src]="illus?.illustrationUrl" alt="project-image" class="rounded">
+      <div class="project-info-box">
+        <p><b>Illustration name:</b> {{ illus?.name }}</p>
+        <p><b>Illustrations list:</b> <a class="card-link" style="cursor:pointer" routerLink="/illus/list">Click
+            here</a></p>
+      </div><!-- / project-info-box -->
+    </div><!-- / column -->
+  </div>
+</div>
